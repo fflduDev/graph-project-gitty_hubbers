@@ -17,20 +17,45 @@ public class ListBasedDiGraph implements DiGraph {
 
 	@Override
 	public Boolean removeNode(GraphNode node) {
-		// TODO Auto-generated method stub
-		return null;
+		GraphNode targetNode = getNode(node.getValue());
+		if (targetNode == null) {
+			return false;
+		}
+		for (GraphNode cur : nodeList) {
+			cur.removeNeighbor(targetNode);
+		}
+		
+		nodeList.remove(targetNode);
+		
+		return true;
+		
 	}
 
 	@Override
 	public Boolean setNodeValue(GraphNode node, String newNodeValue) {
-		// TODO Auto-generated method stub
-		return null;
+		for (GraphNode n : nodeList) {
+			if (n.getValue().equals(newNodeValue) && !n.getValue().equals(node.getValue())) {
+				return false;
+			}
+		}
+		for (GraphNode n : nodeList) {
+			if (n.getValue().equals(node.getValue())) {
+				n.setValue(newNodeValue);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
 	public String getNodeValue(GraphNode node) {
-		// TODO Auto-generated method stub
-		return null;
+		GraphNode target = getNode(node.getValue());
+		
+		if (target == null) {
+			return null;
+		}
+		
+		return target.getValue();
 	}
 
 	@Override
@@ -50,8 +75,15 @@ public class ListBasedDiGraph implements DiGraph {
 
 	@Override
 	public Boolean removeEdge(GraphNode fromNode, GraphNode toNode) {
-		// TODO Auto-generated method stub
-		return null;
+		GraphNode targetFromNode = getNode(fromNode.getValue());
+		GraphNode targetToNode = getNode(toNode.getValue());
+		
+		if (targetFromNode == null || targetToNode == null) {
+			return false;
+		}
+		
+		return targetFromNode.removeNeighbor(targetToNode);
+		
 	}
 
 	@Override
