@@ -42,9 +42,21 @@ public class SuperDuperGraphTester {
 		TESTshortestPath("Washington", "Atlanta");
 	
 		
-		// 
-		//ADD MORE TESTS HERE!!!
-		//
+		TESTnodesAreAdjacent("Austin", "Dallas");
+		TESTnodesAreAdjacent("Austin", "Washington");
+		TESTgetEdgeValue("Austin", "Houston");
+		TESTsetEdgeValue("Austin", "Houston", 155);
+		TESTgetEdgeValue("Austin", "Houston");
+		TESTgetAdjacentNodes("Dallas");
+		TESTremoveEdge("Dallas", "Chicago");
+		TESTnodesAreAdjacent("Dallas", "Chicago");
+		TESTfewestHops("Dallas", "Chicago");
+		TESTshortestPath("Dallas", "Chicago");
+		TESTaddNode("Austin");
+		TESTaddEdge("Austin", "Missing City", 10);
+		TESTremoveNode("Houston");
+		TESTnodeIsReachable("Austin", "Atlanta");
+		TESTdescribeGraph();
 				
 		
 		
@@ -59,6 +71,40 @@ public class SuperDuperGraphTester {
 	public static void TESTshortestPath(String nodeFrom, String nodeTo) {
 		System.out.println("The graph has a shortest path of: " + graph.shortestPath(new GraphNode(nodeFrom), new GraphNode(nodeTo)) + " from " + nodeFrom + " to " + nodeTo);
 	
+	}
+	
+	public static void TESTnodesAreAdjacent(String nodeFrom, String nodeTo) {
+		System.out.println("Node [" + nodeFrom + "] " +
+				(graph.nodesAreAdjacent(new GraphNode(nodeFrom), new GraphNode(nodeTo)) ? "is" : "is NOT") +
+				" directly connected to [" + nodeTo + "]");
+	}
+	
+	public static void TESTgetEdgeValue(String nodeFrom, String nodeTo) {
+		Integer value = graph.getEdgeValue(new GraphNode(nodeFrom), new GraphNode(nodeTo));
+		System.out.println("The edge from [" + nodeFrom + "] to [" + nodeTo + "] has weight: " + value);
+	}
+	
+	public static void TESTsetEdgeValue(String nodeFrom, String nodeTo, Integer newWeight) {
+		say("Attempting to setEdgeValue from [" + nodeFrom + "] to [" + nodeTo + "] with weight [" + newWeight.toString() + "]");
+		say(graph.setEdgeValue(new GraphNode(nodeFrom), new GraphNode(nodeTo), newWeight) ? "SUCCESS" : "FAIL");
+	}
+	
+	public static void TESTgetAdjacentNodes(String nodeValue) {
+		System.out.print("Node [" + nodeValue + "] has adjacent nodes: ");
+		for (GraphNode node : graph.getAdjacentNodes(new GraphNode(nodeValue))) {
+			System.out.print("[" + node.getValue() + "] ");
+		}
+		System.out.println();
+	}
+	
+	public static void TESTremoveEdge(String nodeFrom, String nodeTo) {
+		say("Attempting to removeEdge from [" + nodeFrom + "] to [" + nodeTo + "]");
+		say(graph.removeEdge(new GraphNode(nodeFrom), new GraphNode(nodeTo)) ? "SUCCESS" : "FAIL");
+	}
+	
+	public static void TESTremoveNode(String value) {
+		say("Attempting to removeNode [" + value + "]");
+		say(graph.removeNode(new GraphNode(value)) ? "SUCCESS" : "FAIL");
 	}
 	
 	

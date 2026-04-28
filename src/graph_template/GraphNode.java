@@ -42,14 +42,13 @@ public class GraphNode {
 	
 
 	public Boolean removeNeighbor(GraphNode neighbor) {
-		Boolean returnValue = false;
 		for (GraphNode thisNode : paths.keySet()) {
 			if (thisNode.getValue().equals(neighbor.getValue())) {
 				paths.remove(thisNode);
-				returnValue = true;
+				return true;
 			}
 		}
-		return returnValue;
+		return false;
 	}
 	
 	public Boolean addNeighbor(GraphNode neighbor, Integer weight) {
